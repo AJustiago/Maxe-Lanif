@@ -1,8 +1,9 @@
-# global library
-import jsonify
+# global libraries
 import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import jwt
+import datetime
 
 # environment access
 def load_env(file_path="./backend/.env"):
@@ -59,20 +60,14 @@ def connect_to_mysql():
         print(f"Error: {err}")
         return None
 
-# # Example usage
-connection = connect_to_mysql()
-# if connection is not None:
-#     cursor = connection.cursor()
-#     # Perform database operations here
-#     cursor.close()
-#     connection.close()
-# else:
-#     print("Failed to connect to the database")
-
 # Main Code
 app = Flask(__name__)
 CORS(app)
 
+# Secret key for JWT encoding/decoding
+app.config['SECRET_KEY'] = 'Maxe_Lanif'
+
+# Routes
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
@@ -86,11 +81,16 @@ def signup():
     values = (name, email, password, teleNum, address)
 
     try:
-        cursor = connection.cursor()
-        cursor.execute(query, values)
-        connection.commit()
-        cursor.close()
-        return jsonify({'message': 'Signup success', 'status': True})
+        connection = connect_to_mysql()
+        if connection is not None:
+            cursor = connection.cursor()
+            cursor.execute(query, values)
+            connection.commit()
+            cursor.close()
+            connection.close()
+            return jsonify({'message': 'Signup success', 'status': True})
+        else:
+            return jsonify({'message': 'Signup failed', 'status': False})
     except Exception as e:
         print(f"Error during signup: {e}")
         return jsonify({'message': 'Signup failed', 'status': False})
@@ -105,27 +105,35 @@ def signin():
     values = (email, password)
 
     try:
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute(query, values)
-        user = cursor.fetchone()
-        cursor.close()
+        connection = connect_to_mysql()
+        if connection is not None:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute(query, values)
+            user = cursor.fetchone()
+            cursor.close()
+            connection.close()
 
-        if user:
-            # Construct the response with user details
-            response_data = {
-                'message': 'Signin success',
-                'status': True,
-                'accessToken': 'your_access_token',
-                'user': {
-                    'Name': user['name'],
-                    'Email': user['email'],
-                    'Address': user['address'],
-                    'Phone': user['teleNum']
+            if user:
+                # Generate JWT token
+                token = jwt.encode({'user': user['email'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+
+                # Construct the response with user details and token
+                response_data = {
+                    'message': 'Signin success',
+                    'status': True,
+                    'accessToken': token.decode('UTF-8'),
+                    'user': {
+                        'Name': user['name'],
+                        'Email': user['email'],
+                        'Address': user['address'],
+                        'Phone': user['teleNum']
+                    }
                 }
-            }
-            return jsonify(response_data)
+                return jsonify(response_data)
+            else:
+                return jsonify({'message': 'Invalid credentials', 'status': False})
         else:
-            return jsonify({'message': 'Invalid credentials', 'status': False})
+            return jsonify({'message': 'Signin failed', 'status': False})
     except Exception as e:
         print(f"Error during signin: {e}")
         return jsonify({'message': 'Signin failed', 'status': False})
