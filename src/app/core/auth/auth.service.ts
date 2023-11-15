@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
@@ -8,6 +8,7 @@ import { UserService } from 'app/core/user/user.service';
 export class AuthService
 {
     private _authenticated: boolean = false;
+    private apiUrl = 'http://localhost:5000'; 
 
     /**
      * Constructor
@@ -65,31 +66,19 @@ export class AuthService
      *
      * @param credentials
      */
-    signIn(credentials: { email: string; password: string }): Observable<any>
-    {
-        // Throw error, if the user is already logged in
-        if ( this._authenticated )
-        {
-            return throwError('User is already logged in.');
-        }
-
-        return this._httpClient.post('api/auth/sign-in', credentials).pipe(
-            switchMap((response: any) => {
-
-                // Store the access token in the local storage
-                this.accessToken = response.accessToken;
-
-                // Set the authenticated flag to true
-                this._authenticated = true;
-
-                // Store the user on the user service
-                this._userService.user = response.user;
-
-                // Return a new observable with the response
-                return of(response);
-            })
-        );
-    }
+    signIn(credentials : {email: string, password: string}): Observable<any> {
+        const body = {
+          email: credentials.email,
+          password: credentials.password,
+        };
+    
+        // Set headers if needed (e.g., content type)
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+    
+        return this._httpClient.post(`${this.apiUrl}/test`, body, { headers: headers });
+      }
 
     /**
      * Sign in using the access token

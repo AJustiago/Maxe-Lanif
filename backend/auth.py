@@ -2,9 +2,10 @@
 import jsonify
 import json
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 # environment access
-def load_env(file_path="./Maxe-Lanif/backend/.env"):
+def load_env(file_path="./backend/.env"):
     env_vars = {}
     try:
         with open(file_path, "r") as file:
@@ -71,6 +72,7 @@ else:
     
 # Main Code    
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -87,6 +89,10 @@ def signin():
     password = data['password']
 
     return jsonify({'message': 'Invalid email or password'})
+
+@app.route('/test', methods=['POST','GET'])
+def test():
+    return jsonify({'message': 'Message Submitted'})
 
 if __name__ == '__main__':
     app.run()
