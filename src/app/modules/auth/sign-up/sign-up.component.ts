@@ -47,8 +47,8 @@ export class AuthSignUpComponent implements OnInit
                 name      : ['', Validators.required],
                 email     : ['', [Validators.required, Validators.email]],
                 password  : ['', Validators.required],
-                phone     : ['', Validators.required],
-                addrres   : [''],
+                teleNum   : ['', Validators.required],
+                address   : [''],
                 agreements: ['', Validators.requiredTrue]
             }
         );

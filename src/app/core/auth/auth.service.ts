@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService
@@ -15,7 +17,8 @@ export class AuthService
      */
     constructor(
         private _httpClient: HttpClient,
-        private _userService: UserService
+        private _userService: UserService,
+        private router: Router,
     )
     {
     }
@@ -72,12 +75,11 @@ export class AuthService
           password: credentials.password,
         };
     
-        // Set headers if needed (e.g., content type)
         const headers = new HttpHeaders({
           'Content-Type': 'application/json',
         });
     
-        return this._httpClient.post(`${this.apiUrl}/test`, body, { headers: headers });
+        return this._httpClient.post(`${this.apiUrl}/signin`, body, { headers: headers });
       }
 
     /**
@@ -140,9 +142,17 @@ export class AuthService
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; company: string }): Observable<any>
+    signUp(user: { name: string; email: string; password: string; teleNum: string; address: string }): Observable<any>
     {
-        return this._httpClient.post('api/auth/sign-up', user);
+        return this._httpClient.post(`${this.apiUrl}/signup`, user).pipe(
+            tap((response: any) => {
+              // Assuming your API returns a success flag or some indicator
+              if (response.message == 'Success') {
+                // Redirect to the sign-in page
+                this.router.navigate(['/sign-in']); // Adjust the route as per your application structure
+              }
+            })
+          );
     }
 
     /**

@@ -77,10 +77,14 @@ CORS(app)
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
+    name = data['name']
     email = data['email']
     password = data['password']
+    teleNum = data['teleNum']
+    address = data['address']
 
-    return jsonify({'message': 'Sign up successful'})
+    return jsonify({'message': 'Success',
+                    'status': True})
 
 @app.route('/signin', methods=['POST'])
 def signin():
@@ -88,7 +92,8 @@ def signin():
     email = data['email']
     password = data['password']
 
-    return jsonify({'message': 'Invalid email or password'})
+    return jsonify({'message': 'Success',
+                    'status': True})
 
 @app.route('/test', methods=['POST','GET'])
 def test():

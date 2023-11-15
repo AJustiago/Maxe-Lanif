@@ -88,9 +88,27 @@
                     </mat-error>
                 </mat-form-field>
 
-                <!-- Compa field -->
+                <!-- Telephone number field -->
                 <mat-form-field class="w-full">
-                    <mat-label>Company</mat-label>
+                    <mat-label>Telephone Number</mat-label>
+                    <input
+                        id="teleNum"
+                        matInput
+                        type="tel"
+                        [formControlName]="'teleNum'">
+                    <mat-error *ngIf="signUpForm.get('teleNum').hasError('required')">
+                        Telephone number is required
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('teleNum').hasError('pattern')">
+                        Please enter a valid telephone number
+                    </mat-error>
+                </mat-form-field>
+                
+
+
+                <!-- Address field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Address</mat-label>
                     <input
                         id="company-confirm"
                         matInput
@@ -124,7 +142,7 @@
                     [disabled]="signUpForm.disabled"
                     (click)="signUp()">
                     <span *ngIf="!signUpForm.disabled">
-                        Create your free account
+                        Create your account
                     </span>
                     <mat-progress-spinner
                         *ngIf="signUpForm.disabled"
@@ -160,11 +178,7 @@
         <div class="z-10 relative w-full max-w-2xl">
             <div class="text-7xl font-bold leading-none text-gray-100">
                 <div>Welcome to</div>
-                <div>our community</div>
-            </div>
-            <div class="mt-6 text-lg tracking-tight leading-6 text-gray-400">
-                Fuse helps developers to build organized and well coded dashboards full of beautiful and rich modules.
-                Join us and start building your application today.
+                <div>Fit Flex</div>
             </div>
             <div class="flex items-center mt-8">
                 <div class="flex flex-0 items-center -space-x-1.5">
@@ -181,7 +195,7 @@
                         class="flex-0 w-10 h-10 rounded-full ring-4 ring-offset-1 ring-gray-800 ring-offset-gray-800 object-cover"
                         src="assets/images/avatars/male-16.jpg">
                 </div>
-                <div class="ml-4 font-medium tracking-tight text-gray-400">More than 17k people joined us, it's your turn</div>
+                <div class="ml-4 font-medium tracking-tight text-gray-400">Join over 5,000 fitness enthusiasts who've already taken the leap – now it's your turn!</div>
             </div>
         </div>
     </div>
