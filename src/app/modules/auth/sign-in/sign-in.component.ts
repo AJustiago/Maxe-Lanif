@@ -75,27 +75,20 @@ export class AuthSignInComponent implements OnInit
             .subscribe(
                 (response) => {
                     if (response.status === true) {
-                        // Sign-in successful
-                        // Set the redirect URL
+
                         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-    
-                        // Navigate to the redirect URL
+
                         this._router.navigateByUrl(redirectURL);
                     } else {
-                        // Sign-in failed
-                        // Re-enable the form
                         this.signInForm.enable();
-    
-                        // Reset the form
                         this.signInNgForm.resetForm();
-    
-                        // Set the alert
+
                         this.alert = {
                             type: 'error',
                             message: 'Sign-in failed'
                         };
     
-                        // Show the alert
+
                         this.showAlert = true;
                     }
                 },

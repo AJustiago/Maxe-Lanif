@@ -39,7 +39,6 @@ if db_host and db_user and db_password and db_name:
 else:
     print("Failed to access environment variables from .env file.")
 
-
 # db connection
 import mysql.connector
 
@@ -60,17 +59,17 @@ def connect_to_mysql():
         print(f"Error: {err}")
         return None
 
-# Example usage
+# # Example usage
 connection = connect_to_mysql()
-if connection is not None:
-    cursor = connection.cursor()
-    # Perform database operations here
-    cursor.close()
-    connection.close()
-else:
-    print("Failed to connect to the database")
-    
-# Main Code    
+# if connection is not None:
+#     cursor = connection.cursor()
+#     # Perform database operations here
+#     cursor.close()
+#     connection.close()
+# else:
+#     print("Failed to connect to the database")
+
+# Main Code
 app = Flask(__name__)
 CORS(app)
 
@@ -83,8 +82,18 @@ def signup():
     teleNum = data['teleNum']
     address = data['address']
 
-    return jsonify({'message': 'Success',
-                    'status': True})
+    query = "INSERT INTO users (name, email, password, phoneNumber, address) VALUES (%s, %s, %s, %s, %s)"
+    values = (name, email, password, teleNum, address)
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(query, values)
+        connection.commit()
+        cursor.close()
+        return jsonify({'message': 'Signup success', 'status': True})
+    except Exception as e:
+        print(f"Error during signup: {e}")
+        return jsonify({'message': 'Signup failed', 'status': False})
 
 @app.route('/signin', methods=['POST'])
 def signin():
@@ -92,10 +101,36 @@ def signin():
     email = data['email']
     password = data['password']
 
-    return jsonify({'message': 'Success',
-                    'status': True})
+    query = "SELECT * FROM users WHERE email = %s AND password = %s"
+    values = (email, password)
 
-@app.route('/test', methods=['POST','GET'])
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(query, values)
+        user = cursor.fetchone()
+        cursor.close()
+
+        if user:
+            # Construct the response with user details
+            response_data = {
+                'message': 'Signin success',
+                'status': True,
+                'accessToken': 'your_access_token',
+                'user': {
+                    'Name': user['name'],
+                    'Email': user['email'],
+                    'Address': user['address'],
+                    'Phone': user['teleNum']
+                }
+            }
+            return jsonify(response_data)
+        else:
+            return jsonify({'message': 'Invalid credentials', 'status': False})
+    except Exception as e:
+        print(f"Error during signin: {e}")
+        return jsonify({'message': 'Signin failed', 'status': False})
+
+@app.route('/test', methods=['POST', 'GET'])
 def test():
     return jsonify({'message': 'Message Submitted'})
 

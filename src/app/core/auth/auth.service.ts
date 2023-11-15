@@ -79,7 +79,21 @@ export class AuthService
           'Content-Type': 'application/json',
         });
     
-        return this._httpClient.post(`${this.apiUrl}/signin`, body, { headers: headers });
+        return this._httpClient.post(`${this.apiUrl}/signin`, body, { headers: headers }).pipe(
+            catchError(() =>
+                of(false)
+            ),
+            switchMap((response: any) => {
+
+                this.accessToken = response.accessToken;
+
+                this._authenticated = true;
+
+                // Store the user on the user service
+                this._userService.user = response.user;
+                return of(response);
+            }));
+        
       }
 
     /**
