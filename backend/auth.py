@@ -50,7 +50,8 @@ def connect_to_mysql():
             "host": db_host,
             "user": db_user,
             "password": db_password,
-            "database": db_name
+            "database": db_name,
+            "auth_plugin":'mysql_native_password'
         }
 
         # Establish a database connection
@@ -77,7 +78,7 @@ def signup():
     teleNum = data['teleNum']
     address = data['address']
 
-    query = "INSERT INTO users (name, email, password, phoneNumber, address) VALUES (%s, %s, %s, %s, %s)"
+    query = "INSERT INTO users (userName, userEmail, userPassword, userTeleNum, userAddress) VALUES (%s, %s, %s, %s, %s)"
     values = (name, email, password, teleNum, address)
 
     try:
@@ -101,7 +102,7 @@ def signin():
     email = data['email']
     password = data['password']
 
-    query = "SELECT * FROM users WHERE email = %s AND password = %s"
+    query = "SELECT * FROM users WHERE userEmail = %s AND userPassword = %s"
     values = (email, password)
 
     try:
@@ -115,18 +116,18 @@ def signin():
 
             if user:
                 # Generate JWT token
-                token = jwt.encode({'user': user['email'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+                token = jwt.encode({'user': user['userEmail'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
 
                 # Construct the response with user details and token
                 response_data = {
                     'message': 'Signin success',
                     'status': True,
-                    'accessToken': token.decode('UTF-8'),
+                    'accessToken': token,
                     'user': {
-                        'Name': user['name'],
-                        'Email': user['email'],
-                        'Address': user['address'],
-                        'Phone': user['teleNum']
+                        'Name': user['userName'],
+                        'Email': user['userEmail'],
+                        'Address': user['userAddress'],
+                        'Phone': user['userTeleNum']
                     }
                 }
                 return jsonify(response_data)

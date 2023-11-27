@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
+import { Observable, catchError, of, switchMap, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService
@@ -93,7 +93,6 @@ export class AuthService
                 this._userService.user = response.user;
                 return of(response);
             }));
-        
       }
 
     /**
@@ -156,18 +155,33 @@ export class AuthService
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; teleNum: string; address: string }): Observable<any>
-    {
-        return this._httpClient.post(`${this.apiUrl}/signup`, user).pipe(
-            tap((response: any) => {
-              // Assuming your API returns a success flag or some indicator
-              if (response.message == 'Success') {
-                // Redirect to the sign-in page
-                this.router.navigate(['/sign-in']); // Adjust the route as per your application structure
-              }
-            })
-          );
-    }
+    signUp(user: { name: string; email: string; password: string; teleNum: string; address: string }): Observable<any> {
+        const body = {
+          name: user.name,
+          email: user.email,
+          password: user.password,
+          teleNum: user.teleNum,
+          address: user.address
+        };
+      
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+      
+        return this._httpClient.post(`${this.apiUrl}/signup`, body, { headers: headers }).pipe(
+          tap((response: any) => {
+            if (response.message == 'Signup success') {
+              this.router.navigate(['/sign-in']);
+            }
+          }),
+          catchError((error: any) => {
+            // Handle the error here, e.g., log it or show a user-friendly error message
+            console.error('Signup failed:', error);
+            // You can rethrow the error to propagate it further if needed
+            return throwError(error);
+          })
+        );
+      }
 
     /**
      * Unlock session
