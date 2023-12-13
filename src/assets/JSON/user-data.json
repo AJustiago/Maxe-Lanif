@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "email": "AlexJS@fitflex.com",
+      "password": "Aa123456@",
+      "confirmPassword": "Aa123456@",
+      "name": "Alexander Justine Santiago",
+      "gender": "Male",
+      "address": "Jl. Veteran no.3a",
+      "telephone": "082167661122",
+      "birthDate": "08 February 2003",
+      "role": "A",
+      "DOJ": "01 January 2023",
+      "personalTrainer": "Raymond Senico",
+      "membership": "Gold",
+      "membershipJoin": "07 December 2023"
+    }
+  ]
+}

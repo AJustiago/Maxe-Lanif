@@ -1,0 +1,361 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="page-title">Profile</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="routes.adminDashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Membership</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+    <div class="card mb-0">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="member-view">
+                        <div class="member-wrap">
+                            <div class="member-img">
+                                <img src="assets/img/profiles/avatar-default.jpg" alt="Member" class="img-fluid" style="max-width: 100px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="member-basic">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Member Type     : {{user?.membership}}</p>
+                                <p>Membership Date : {{user?.membershipJoin}}</p>
+                                <p>Membership End  : {{getRemainingDate()}}</p>
+                                <p>Name            : {{user?.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-0 warning" *ngIf="user?.membership !== '-'">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    SUBSCRIBE CANT BE ADDED WHEN THERE'S AN ONGOING MEMBER
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tab-content profile-tab-content">
+                <div id="myprojects" class="tab-pane fade show active">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="project-title">Bronze</h4>
+                                    <small class="block text-ellipsis m-b-15">
+                                        <span class="text-muted">Perfect for trying out a new gym or if you're only going to be using the gym for a short period of time. </span>
+                                    </small>
+                                    <div class="column">
+                                        <p>1. Unlimited access to the gym's facilities, including cardio equipment, weight machines, and free weights.</p>
+                                        <p>2. Group fitness classes. </p>
+                                        <p>3. Use of the locker rooms and showers. </p>
+                                        <p>4. - </p>
+                                    </div>
+                                    <div class="pro-deadline m-b-15">
+                                        <div class="sub-title">
+                                            Rp. 150.000
+                                        </div>
+                                        <div class="text-muted">
+                                            1 Month
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#subscribe_bronze" [disabled]="user?.membership === 'Bronze' || user?.membership === 'Silver' || user?.membership === 'Gold' || user?.membership === 'Platinum' || user?.membership === 'Emerald'">
+                                        Subscribe
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="project-title">Silver</h4>
+                                    <small class="block text-ellipsis m-b-15">
+                                        <span class="text-muted">A great way to get started on your fitness journey or to save some money. </span>
+                                    </small>
+                                    <div class="column">
+                                        <p>1. Unlimited access to the gym's facilities, including cardio equipment, weight machines, and free weights.</p>
+                                        <p>2. Group fitness classes. </p>
+                                        <p>3. Use of the locker rooms and showers. </p>
+                                        <p>4. 3 Session with Personal Trainer. </p>
+                                    </div>
+                                    <div class="pro-deadline m-b-15">
+                                        <div class="sub-title">
+                                            Rp. 350.000
+                                        </div>
+                                        <div class="text-muted">
+                                            3 Month
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#subscribe_silver" [disabled]="user?.membership === 'Bronze' || user?.membership === 'Silver' || user?.membership === 'Gold' || user?.membership === 'Platinum' || user?.membership === 'Emerald'">
+                                        Subscribe
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="project-title">Gold</h4>
+                                    <small class="block text-ellipsis m-b-15">
+                                        <span class="text-muted">The most popular option, as it offers a good balance of affordability and flexibility. </span>
+                                    </small>
+                                    <div class="column">
+                                        <p>1. Unlimited access to the gym's facilities, including cardio equipment, weight machines, and free weights.</p>
+                                        <p>2. Group fitness classes. </p>
+                                        <p>3. Use of the locker rooms and showers. </p>
+                                        <p>4. 12 Session with Personal Trainer. </p>
+                                    </div>
+                                    <div class="pro-deadline m-b-15">
+                                        <div class="sub-title">
+                                            Rp. 650.000
+                                        </div>
+                                        <div class="text-muted">
+                                            6 Month
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#subscribe_gold" [disabled]="user?.membership === 'Bronze' || user?.membership === 'Silver' || user?.membership === 'Gold' || user?.membership === 'Platinum' || user?.membership === 'Emerald'">
+                                        Subscribe
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="project-title">Platinum</h4>
+                                    <small class="block text-ellipsis m-b-15">
+                                        <span class="text-muted">The best value for your money, if you're committed to your fitness goals. </span>
+                                    </small>
+                                    <div class="column">
+                                        <p>1. Unlimited access to the gym's facilities, including cardio equipment, weight machines, and free weights.</p>
+                                        <p>2. Group fitness classes. </p>
+                                        <p>3. Use of the locker rooms and showers. </p>
+                                        <p>4. 48 Session with Personal Trainer. </p>
+                                    <div class="pro-deadline m-b-15">
+                                        <div class="sub-title">
+                                            Rp. 1.000.000
+                                        </div>
+                                        <div class="text-muted">
+                                            12 Month
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#subscribe_platinum"
+                                    [disabled]="user?.membership === 'Bronze' || user?.membership === 'Silver' || user?.membership === 'Gold' || user?.membership === 'Platinum' || user?.membership === 'Emerald'">
+                                        Subscribe
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="project-title">Emerald</h4>
+                                    <small class="block text-ellipsis m-b-15">
+                                        <span class="text-muted">Our longest-term membership, perfect for those who are serious about their fitness. </span>
+                                    </small>
+                                    <div class="column">
+                                        <p>1. Unlimited access to the gym's facilities, including cardio equipment, weight machines, and free weights.</p>
+                                        <p>2. Group fitness classes. </p>
+                                        <p>3. Use of the locker rooms and showers. </p>
+                                        <p>4. 164 Session with Personal Trainer. </p>
+                                    </div>
+                                    <div class="pro-deadline m-b-15">
+                                        <div class="sub-title">
+                                            Rp. 1.800.000
+                                        </div>
+                                        <div class="text-muted">
+                                            24 Month
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#subscribe_emerald"
+                                    [disabled]="user?.membership === 'Bronze' || user?.membership === 'Silver' || user?.membership === 'Gold' || user?.membership === 'Platinum' || user?.membership === 'Emerald'">Subscribe</button>
+                            
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+<div id="subscribe_bronze" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Virtual Account Payment</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-scroll">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title"><b>Bank:</b> Bank Central Asia</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label" >5734 {{ user?.telephone }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" (click)="membershipValue('Bronze')">Payment Completed</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="subscribe_silver" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Virtual Account Payment</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-scroll">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title"><b>Bank:</b> Bank Central Asia</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label" >5734 {{ user?.telephone }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" (click)="membershipValue('Silver')">Payment Completed</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="subscribe_gold" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Virtual Account Payment</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-scroll">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title"><b>Bank:</b> Bank Central Asia</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label" >5734 {{ user?.telephone }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" (click)="membershipValue('Gold')">Payment Completed</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="subscribe_platinum" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Virtual Account Payment</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-scroll">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title"><b>Bank:</b> Bank Central Asia</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label" >5734 {{ user?.telephone }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" (click)="membershipValue('Platinum')">Payment Completed</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="subscribe_emerald" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Virtual Account Payment</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-scroll">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title"><b>Bank:</b> Bank Central Asia</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label" >5734 {{ user?.telephone }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" (click)="membershipValue('Emerald')">Payment Completed</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

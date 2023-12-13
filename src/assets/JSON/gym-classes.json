@@ -1,0 +1,65 @@
+{
+    "data": [
+      {
+        "month": "November",
+        "classes": [
+          {
+            "date": "2023-11-01",
+            "name": "Cardio Blast",
+            "time": "10:00 AM"
+          },
+          {
+            "date": "2023-11-10",
+            "name": "Strength Training",
+            "time": "5:30 PM"
+          },
+          {
+            "date": "2023-11-20",
+            "name": "Yoga Flow",
+            "time": "8:00 AM"
+          }
+        ]
+      },
+      {
+        "month": "December",
+        "classes": [
+          {
+            "date": "2023-12-05",
+            "name": "HIIT Workout",
+            "time": "6:00 PM"
+          },
+          {
+            "date": "2023-12-15",
+            "name": "Pilates",
+            "time": "9:30 AM"
+          },
+          {
+            "date": "2023-12-28",
+            "name": "Zumba",
+            "time": "7:45 PM"
+          }
+        ]
+      },
+      {
+        "month": "January",
+        "classes": [
+          {
+            "date": "2024-01-03",
+            "name": "Spin Class",
+            "time": "6:30 AM"
+          },
+          {
+            "date": "2024-01-12",
+            "name": "Core Conditioning",
+            "time": "4:00 PM"
+          },
+          {
+            "date": "2024-01-25",
+            "name": "Kickboxing",
+            "time": "7:00 PM"
+          }
+        ]
+      }
+    ]
+  }
+  

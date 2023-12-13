@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "email": "AlexJS@fitflex.com",
+      "primaryName": "Stewart Fernandez",
+      "primaryRelationship": "Father",
+      "primaryPhone": "081372226197",
+      "secondaryName": "Vania Callysta Tandy",
+      "secondaryRelationship": "Mother",
+      "secondaryPhone": "081377141981",
+      "familyName": "Lovlyn Octovia Ang Jaya",
+      "familyRelationship": "Sister",
+      "familyPhone": "081269871476"
+    },
+    {
+      "email": "alexander.justine@pt-ssss.com",
+      "primaryName": "Stewart Fernandez",
+      "primaryRelationship": "Aa",
+      "primaryPhone": "000000000000",
+      "secondaryName": "ghggg",
+      "secondaryRelationship": "asa",
+      "secondaryPhone": "000000000000"
+    },
+    {
+      "email": "tiffany.tania@pt-ssss.com"
+    },
+    {
+      "email": "alexcode0702@gmail.com"
+    }
+  ]
+}

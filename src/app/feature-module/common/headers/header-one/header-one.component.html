@@ -1,0 +1,78 @@
+			<!-- Header -->
+            <div class="header">
+
+				<!-- Logo -->
+                <div class="header-left">
+                     <a [routerLink]="routes.adminDashboard" class="logo">
+						<img src="assets/img/logo.png" width="40" height="40" alt="">
+					</a>
+					<a [routerLink]="routes.adminDashboard" class="logo2">
+						<img src="assets/img/logo2.png" width="40" height="40" alt="">
+					</a>
+                </div>
+				<!-- /Logo -->
+
+				<a (click)="toggleSideBar()" id="toggle_btn" href="javascript:void(0);">
+					<span class="bar-icon" [hidden]="!baricon">
+						<span></span>
+						<span></span>
+						<span></span>
+					</span>
+				</a>
+
+				<!-- Header Title -->
+                <div class="page-title-box">
+					<h3>FIT FLEX</h3>
+                </div>
+				<!-- /Header Title -->
+
+				<a id="mobile_btn" (click)="togglesMobileSideBar()" (keydown.enter)="togglesMobileSideBar()" tabindex="0" class="mobile_btn" ><i class="fa-solid fa-bars"></i></a>
+
+				<!-- Header Menu -->
+				<ul class="nav user-menu">
+
+
+					<!-- Notifications -->
+					<li class="nav-item dropdown">
+						<a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+							<i class="fa-regular fa-bell me-1"></i> <span class="badge rounded-pill"></span>
+						</a>
+						<div class="dropdown-menu notifications">
+							<div class="topnav-dropdown-header">
+								<span class="notification-title">Notifications</span>
+								<!-- <a href="javascript:void(0)" class="clear-noti"> Clear All </a> -->
+							</div>
+							<div class="topnav-dropdown-footer">
+								<a [routerLink]="'/activities/activites-view'">View all Notifications</a>
+							</div>
+						</div>
+					</li>
+					<!-- /Notifications -->
+
+					<li class="nav-item dropdown has-arrow main-drop">
+						<a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+							<span class="user-img me-2"><img src="assets/img/profiles/avatar-default.jpg" alt="">
+							<span class="status online"></span></span>
+							<span>{{ user?.name }}</span>
+						</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" [routerLink] = "routes.employeeProfile">My Profile</a>
+							<a class="dropdown-item" [routerLink]="'/settings/company-settings'">Settings</a>
+							<a class="dropdown-item" (click)="logout()" (keydown.enter)="logout()" tabindex="0">Logout</a>
+						</div>
+					</li>
+				</ul>
+				<!-- /Header Menu -->
+
+				<!-- Mobile Menu -->
+				<div class="dropdown mobile-user-menu">
+					<a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" [routerLink] = "routes.employeeProfile">My Profile</a>
+						<a class="dropdown-item" (click)="logout()" (keydown.enter)="logout()" tabindex="0">Logout</a>
+					</div>
+				</div>
+				<!-- /Mobile Menu -->
+
+            </div>
+			<!-- /Header -->

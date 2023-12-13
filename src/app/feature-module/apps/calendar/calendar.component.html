@@ -1,0 +1,58 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+	<!-- Page Header -->
+	<div class="page-header">
+		<div class="row align-items-center">
+			<div class="col">
+				<h3 class="page-title">Events</h3>
+				<ul class="breadcrumb">
+					<li class="breadcrumb-item"><a [routerLink]="routes.adminDashboard">Dashboard</a></li>
+					<li class="breadcrumb-item active">Events</li>
+				</ul>
+			</div>
+			<!-- <div class="col-auto float-end ms-auto">
+				<a href="javascript:void(0);" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_event"><i
+						class="fa-solid fa-plus"></i> Add Event</a>
+			</div> -->
+		</div>
+	</div>
+	<!-- /Page Header -->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card mb-0">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+
+							<!-- Display warning if membership is insufficient -->
+							<div *ngIf="user?.membership === '-'">
+								<div class="alert alert-warning" role="alert">
+								  Subscribe to a membership to see full schedule.
+								</div>
+							</div>
+
+							<!-- Calendar -->
+							<full-calendar *ngIf="calendarVisible" [options]="calendarOptions">
+								<ng-template #eventContent let-arg>
+								<div *ngIf="user?.membership !== '-'">
+								  <div class="event-content">
+									<div class="event-time">
+									  {{ arg.event.start | date: 'HH:mm' }} - {{ arg.event.end | date: 'HH:mm' }}
+									</div>
+									<div class="event-title">{{ arg.event.title }}</div>
+								  </div>
+								</div>
+								</ng-template>
+							  </full-calendar>
+							  
+							<!-- /Calendar -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

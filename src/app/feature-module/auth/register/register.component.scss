@@ -1,0 +1,37 @@
+/* Custom styling for the gender dropdown */
+.custom-select {
+    position: relative;
+    width: 100%;
+  }
+  
+  .custom-select select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .custom-select select:focus {
+    outline: none;
+  }
+  
+  .custom-select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  
+  /* Style the dropdown options */
+  .custom-select select option {
+    padding: 10px;
+  }
+  
+  /* Optional: Style the dropdown on hover */
+  .custom-select:hover {
+    border-color: #6c757d;
+  }
+  

@@ -1,0 +1,487 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="page-title">Profile</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="routes.adminDashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Profile</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="card mb-0">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-view">
+                        <div class="profile-img-wrap">
+                            <div class="profile-img">
+                                <a><img alt="" src="assets/img/profiles/avatar-default.jpg"></a>
+                            </div>
+                        </div>
+                        <div class="profile-basic">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="profile-info-left">
+                                        <h3 class="user-name m-t-0 mb-0">{{user?.name}}</h3>
+                                        <div class="staff-id">Membership Type: {{user?.membership}}</div>
+                                        <div class="small doj text-muted">Date of Join : {{user?.DOJ}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <ul class="personal-info">
+                                        <li>
+                                            <div class="title">Phone:</div>
+                                            <div class="text">{{ user?.telephone }}</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">Email:</div>
+                                            <div class="text">{{ user?.email}}</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">Birthday:</div>
+                                            <div class="text">{{ user?.birthDate }}</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">Address:</div>
+                                            <div class="text">{{ user?.address }}</div>
+                                        </li>
+										<li>
+											<div class="title">Gender:</div>
+											<div class="text">
+												<ng-container *ngIf="user?.gender === 'male'; else notMale">
+													Male
+												</ng-container>
+												<ng-template #notMale>
+													<ng-container *ngIf="user?.gender === 'female'; else notFemale">
+														Female
+													</ng-container>
+													<ng-template #notFemale>
+														{{ user?.gender }}
+													</ng-template>
+												</ng-template>
+											</div>
+										</li>										
+                                        <li>
+                                            <div class="title">Personal Trainer:</div>
+                                            <div class="text">
+												<div  *ngIf="user?.membership !== '-' && user?.membership !== 'Bronze'">
+													<div class="avatar-box">
+														<div class="avatar avatar-xs">
+															<img src="assets/img/profiles/avatar-default.jpg" alt="">
+														</div>
+													</div>
+													<div>
+														Raymond Senico
+													</div>
+												</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pro-edit"><a data-bs-target="#profile_info" data-bs-toggle="modal" class="edit-icon"><i
+                                    class="fa-solid fa-pencil"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content">
+
+        <!-- Profile Info Tab -->
+        <div id="emp_profile" class="pro-overview tab-pane fade show active">
+            <div class="row">
+                <div class="col-md-12 d-flex">
+                    <div class="card profile-box flex-fill">
+                        <div class="card-body">
+                            <h3 class="card-title">Emergency Contact <a class="edit-icon" data-bs-toggle="modal"
+                                    data-bs-target="#emergency_contact_modal"><i class="fa-solid fa-pencil"></i></a></h3>
+                            <h5 class="section-title">Primary</h5>
+                            <ul class="personal-info">
+                                <li>
+                                    <div class="title">Name</div>
+                                    <div class="text">{{ familyData?.primaryName }}</div>
+                                </li>
+                                <li>
+                                    <div class="title">Relationship</div>
+                                    <div class="text">{{ familyData?.primaryRelationship }}</div>
+                                </li>
+                                <li>
+                                    <div class="title">Phone </div>
+                                    <div class="text">{{ familyData?.primaryPhone }}</div>
+                                </li>
+                            </ul>
+                            <hr>
+                            <h5 class="section-title">Secondary</h5>
+                            <ul class="personal-info">
+                                <li>
+                                    <div class="title">Name</div>
+                                    <div class="text">{{ familyData?.secondaryName }}</div>
+                                </li>
+                                <li>
+                                    <div class="title">Relationship</div>
+                                    <div class="text">{{ familyData?.secondaryRelationship }}</div>
+                                </li>
+                                <li>
+                                    <div class="title">Phone </div>
+                                    <div class="text">{{ familyData?.secondaryPhone }}</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 d-flex">
+                    <div class="card profile-box flex-fill">
+                        <div class="card-body">
+                            <h3 class="card-title">Family Informations <a class="edit-icon" data-bs-toggle="modal"
+                                    data-bs-target="#family_info_modal"><i class="fa-solid fa-pencil"></i></a></h3>
+                            <div class="table-responsive">
+                                <table class="table table-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Relationship</th>
+                                            <th>Phone</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ familyData?.familyName }}</td>
+                                            <td>{{ familyData?.familyRelationship }}</td>
+                                            <td>{{ familyData?.familyPhone }}</td>
+                                            <td class="text-end">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+				<!-- Profile Modal -->
+				<div id="profile_info" class="modal custom-modal fade" role="dialog">
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+					  	<div class="modal-content">
+							<div class="modal-header">
+						  		<h5 class="modal-title">Profile Information</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form [formGroup]="profileForm">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="row">
+												<div class="col-md-12">
+												<!-- Name -->
+												<div class="input-block mb-3">
+													<label class="col-form-label" for="name">Name</label>
+													<input type="text" class="form-control" formControlName="name" id="name">
+													<div *ngIf="profileForm.get('name')?.touched">
+														<div *ngIf="profileForm.get('name')?.hasError('required') || profileForm.get('name')?.hasError('pattern')" class="text-danger">
+														<div *ngIf="profileForm.get('name')?.hasError('required')">Name is required</div>
+														<div *ngIf="profileForm.get('name')?.hasError('pattern')">Invalid name format. Only letters and spaces are allowed.</div>
+														</div>
+													</div>
+												</div>
+
+												<!-- Birth Date -->
+												<div class="col-md-12">
+													<div class="input-block mb-3 date-input1">
+													<label class="col-form-label" for="birthDate">Birth Date</label>
+													<div class="cal-icon">
+														<input class="form-control" type="text" formControlName="birthDate" id="birthDate">
+													</div>
+													<div *ngIf="profileForm.get('birthDate')?.hasError('required') && profileForm.get('birthDate')?.touched" class="text-danger">
+														Birth Date is required
+													</div>
+													</div>
+												</div>
+											
+												<!-- Gender -->
+												<div class="col-md-12">
+													<div class="input-block mb-3">
+														<label class="col-form-label" for="gender">Gender</label>
+														<mat-select [(ngModel)]="selectedValue11" [ngModelOptions]="{standalone: true}" class="user-assets select form-control" placeholder="{{user?.gender}}">
+															<mat-option *ngFor="let data of selectedList11" [value]="data.value">
+																{{data.value}}
+															</mat-option>
+														</mat-select>
+														<div *ngIf="profileForm.get('gender')?.hasError('required') && profileForm.get('gender')?.touched" class="text-danger">
+															Gender is required
+														</div>
+													</div>
+												</div>
+											
+												<!-- Address -->
+												<div class="col-md-12">
+													<div class="input-block mb-7">
+													<label class="col-form-label" for="address">Address</label>
+													<input type="text" class="form-control" formControlName="address" id="address">
+													<div *ngIf="profileForm.get('address')?.hasError('required') && profileForm.get('address')?.touched" class="text-danger">
+														Address is required
+													</div>
+													</div>
+												</div>
+											
+												<!-- Telephone -->
+												<div class="col-md-12">
+													<div class="input-block mb-3">
+														<label class="col-form-label" for="telephone">Phone</label>
+														<input type="text" class="form-control" formControlName="telephone" id="telephone">
+														<div *ngIf="profileForm.get('telephone')?.touched">
+														<div *ngIf="profileForm.get('telephone')?.hasError('required')" class="text-danger">
+															Phone is required
+														</div>
+														<div *ngIf="profileForm.get('telephone')?.hasError('pattern')" class="text-danger">
+															Invalid phone format. Must start with '0', there are 12-13 number characters, and there are no letters or symbols.
+														</div>
+														<div *ngIf="profileForm.get('telephone')?.hasError('minlength')" class="text-danger">
+															Phone number must be at least 12 characters long.
+														</div>
+														<div *ngIf="profileForm.get('telephone')?.hasError('maxlength')" class="text-danger">
+															Phone number cannot be more than 13 characters long.
+														</div>
+														</div>
+													</div>
+												</div>
+											
+												<!-- Submit button -->
+												<div class="submit-section">
+													<button type="button" class="btn btn-primary submit-btn" (click)="submitFormProfile()">
+													Submit
+													</button>
+												</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- /Profile Modal -->
+				
+				<!-- Family Info Modal -->
+				<div id="family_info_modal" class="modal custom-modal fade" role="dialog">
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title"> Family Informations</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form [formGroup]="familyForm" (ngSubmit)="submitFormFamily()">
+									<div class="form-scroll">
+										<div class="card">
+											<div class="card-body">
+												<h3 class="card-title">Family Member</h3>
+												<div class="row">
+													<div class="col-md-12">
+														<div class="input-block mb-3">
+															<label class="col-form-label" for="familyName">Name <span class="text-danger">*</span></label>
+															<input class="form-control" type="text" formControlName="familyName" id="familyName" pattern="^[a-zA-Z\s]*$" required>
+															<div *ngIf="familyForm?.get('familyName')?.hasError('pattern') && familyForm?.get('familyName')?.touched"
+																class="text-danger">
+																Invalid characters. Only letters and spaces are allowed.
+															</div>
+															<div *ngIf="familyForm?.get('familyName')?.hasError('required') && familyForm?.get('familyName')?.touched"
+																class="text-danger">
+																Name is required.
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="input-block mb-3">
+															<label class="col-form-label" for="familyRelationship">Relationship <span class="text-danger">*</span></label>
+															<input class="form-control" type="text" formControlName="familyRelationship" id="familyRelationship" required>
+															<div *ngIf="familyForm?.get('familyRelationship')?.hasError('required') && familyForm?.get('familyRelationship')?.touched"
+																class="text-danger">
+																Relationship is required.
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-md-12">
+													<div class="input-block mb-3">
+														<label class="col-form-label" for="familyPhone">Phone <span class="text-danger">*</span></label>
+														<input class="form-control" type="text" formControlName="familyPhone" id="familyPhone"
+															[value]="familyData?.familyPhone || ''" pattern="^0[0-9]{11}$" minlength="12" maxlength="12" required>
+														<div *ngIf="familyForm.get('familyPhone')?.hasError('pattern') && familyForm.get('familyPhone')?.touched"
+															class="text-danger">
+															Invalid phone number format. Must start with '0', there are 12-13 number characters, and there are no letters or symbols.
+														</div>
+														<div *ngIf="(familyForm.get('familyPhone')?.hasError('minlength') || familyForm.get('familyPhone')?.hasError('maxlength')) && familyForm.get('familyPhone')?.touched"
+															class="text-danger">
+															Phone number must be 12 - 13 digits long.
+														</div>
+														<div *ngIf="familyForm.get('familyPhone')?.hasError('required') && familyForm.get('familyPhone')?.touched"
+															class="text-danger">
+															Phone number is required.
+														</div>
+													</div>
+												</div>												
+												
+											</div>
+										</div>
+									</div>
+									<div class="submit-section">
+										<button class="btn btn-primary submit-btn" [disabled]="familyForm.invalid">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Family Info Modal -->
+				
+				<!-- Emergency Contact Modal -->
+				<div id="emergency_contact_modal" class="modal custom-modal fade" role="dialog">
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Personal Information</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form [formGroup]="emergencyContactForm" (ngSubmit)="submitFormEmergency()">
+									<div class="card">
+										<div class="card-body">
+											<h3 class="card-title">Primary Contact</h3>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="input-block mb-3">
+														<label class="col-form-label" for="primaryName">Name <span class="text-danger">*</span></label>
+														<input type="text" class="form-control" formControlName="primaryName" id="primaryName"  [value]="familyData?.primaryName"
+															pattern="^[a-zA-Z\s]*$" required>
+														<div *ngIf="emergencyContactForm.get('primaryName')?.hasError('pattern') && emergencyContactForm.get('primaryName')?.touched"
+															class="text-danger">
+															Invalid characters. Only letters and spaces are allowed.
+														</div>
+														<div *ngIf="emergencyContactForm.get('primaryName')?.hasError('required') && emergencyContactForm.get('primaryName')?.touched"
+															class="text-danger">
+															Name is required.
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="input-block mb-3">
+														<label class="col-form-label" for="primaryRelationship">Relationship <span class="text-danger">*</span></label>
+														<input class="form-control" type="text" formControlName="primaryRelationship" id="primaryRelationship"  [value]="familyData?.primaryRelationship"
+															required>
+														<div *ngIf="emergencyContactForm.get('primaryRelationship')?.hasError('required') && emergencyContactForm.get('primaryRelationship')?.touched"
+															class="text-danger">
+															Relationship is required.
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="input-block mb-3">
+														<label class="col-form-label" for="primaryPhone">Phone <span class="text-danger">*</span></label>
+														<input class="form-control" type="text" formControlName="primaryPhone" id="primaryPhone"
+															[value]="familyData?.primaryPhone || ''" pattern="^0[0-9]{11}$" minlength="12" maxlength="12" required>
+														<div *ngIf="emergencyContactForm.get('primaryPhone')?.hasError('pattern') && emergencyContactForm.get('primaryPhone')?.touched"
+															class="text-danger">
+															Invalid phone number format. Must start with '0', there are 12-13 number characters, and there are no letters or symbols.
+														</div>
+														<div *ngIf="(emergencyContactForm.get('primaryPhone')?.hasError('minlength') || emergencyContactForm.get('primaryPhone')?.hasError('maxlength')) && emergencyContactForm.get('primaryPhone')?.touched"
+															class="text-danger">
+															Phone number must be 12 - 13 digits long.
+														</div>
+														<div *ngIf="emergencyContactForm.get('primaryPhone')?.hasError('required') && emergencyContactForm.get('primaryPhone')?.touched"
+															class="text-danger">
+															Phone number is required.
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+				
+									<div class="card">
+										<div class="card-body">
+											<h3 class="card-title">Secondary Contact</h3>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="input-block mb-3">
+														<label class="col-form-label" for="secondaryName">Name <span class="text-danger">*</span></label>
+														<input type="text" class="form-control" formControlName="secondaryName" id="secondaryName" [value]="familyData?.secondaryName"
+															pattern="^[a-zA-Z\s]*$" required>
+														<div *ngIf="emergencyContactForm.get('secondaryName')?.hasError('pattern') && emergencyContactForm.get('secondaryName')?.touched"
+															class="text-danger">
+															Invalid characters. Only letters and spaces are allowed.
+														</div>
+														<div *ngIf="emergencyContactForm.get('secondaryName')?.hasError('required') && emergencyContactForm.get('secondaryName')?.touched"
+															class="text-danger">
+															Name is required.
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="input-block mb-3">
+														<label class="col-form-label" for="secondaryRelationship">Relationship <span class="text-danger">*</span></label>
+														<input class="form-control" type="text" formControlName="secondaryRelationship" id="secondaryRelationship" [value]="familyData?.secondaryRelationship"
+															required>
+														<div *ngIf="emergencyContactForm.get('secondaryRelationship')?.hasError('required') && emergencyContactForm.get('secondaryRelationship')?.touched"
+															class="text-danger">
+															Relationship is required.
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="input-block mb-3">
+														<label class="col-form-label" for="secondaryPhone">Phone <span class="text-danger">*</span></label>
+														<input class="form-control" type="text" formControlName="secondaryPhone" id="secondaryPhone"
+															[value]="familyData?.secondaryPhone || ''" pattern="^0[0-9]{11}$" minlength="12" maxlength="12" required>
+														<div *ngIf="emergencyContactForm.get('secondaryPhone')?.hasError('pattern') && emergencyContactForm.get('secondaryPhone')?.touched"
+															class="text-danger">
+															Invalid phone number format. Must start with '0', there are 12-13 number characters, and there are no letters or symbols.
+														</div>
+														<div *ngIf="(emergencyContactForm.get('secondaryPhone')?.hasError('minlength') || emergencyContactForm.get('secondaryPhone')?.hasError('maxlength')) && emergencyContactForm.get('secondaryPhone')?.touched"
+															class="text-danger">
+															Phone number must be 12 digits long.
+														</div>
+														<div *ngIf="emergencyContactForm.get('secondaryPhone')?.hasError('required') && emergencyContactForm.get('secondaryPhone')?.touched"
+															class="text-danger">
+															Phone number is required.
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+				
+									<div class="submit-section">
+										<button class="btn btn-primary submit-btn" [disabled]="emergencyContactForm.invalid">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				

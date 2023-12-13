@@ -1,0 +1,125 @@
+<!-- Page Content -->
+<div class="content" [ngClass]="layoutWidth === '2' ? 'container' : 'container-fluid'">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="page-title">Welcome {{ user?.name }} to Fit Flex</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa-solid fa-bullhorn"></i></span>
+                    <div class="dash-widget-info">
+                        <h3 class="event-title">Date: 15 December</h3>
+                        <p class="event-description" style="color: grey;">Morning Pilates and Evening Core Conditioning</p>
+                        <span style="color: red;"><a href="/apps/calendar">Upcoming Events!!</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa-solid fa-bolt"></i></span>
+                    <div class="dash-widget-info">
+                        <div *ngIf="user?.membership === '-'">
+                            <h3 class="event-title">-</h3>
+                            <p class="event-description" style="color: grey;">Locked</p>
+                        </div>
+
+                        <div *ngIf="user?.membership !== '-' && user?.email === 'AlexJS@fitflex.com'">
+                            <h3 class="event-title">5</h3>
+                            <p class="event-description" style="color: grey;">It's been five days. let's make those gains together!</p>
+                        </div>
+                        
+                        <div *ngIf="user?.membership !== '-' && user?.email !== 'AlexJS@fitflex.com'">
+                            <h3 class="event-title">0</h3>
+                            <p class="event-description" style="color: grey;">Let's Taking the first step towards a healthier you!</p>
+                        </div>
+
+                        <span style="color: red;"><a href="">Streaks!!</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa-solid fa-user"></i></span>
+                    <div class="dash-widget-info">
+                        <h3 class="event-title">{{ user?.membership }}</h3>
+                        <p class="event-description" style="color: grey;">{{ getRemainingMonths() }} Months Remaining</p>
+                        <span style="color: red;"><a href="/clients/client-profile">Membership Type</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Total Attendance</h3>
+                            <div *ngIf="user?.email === 'AlexJS@fitflex.com'">
+                                <div id="chart">
+                                    <apx-chart
+                                    [series]="chartOptions2.series"
+                                    [chart]="chartOptions2.chart"
+                                    [dataLabels]="chartOptions2.dataLabels"
+                                    [plotOptions]="chartOptions2.plotOptions"
+                                    [yaxis]="chartOptions2.yaxis"
+                                    [legend]="chartOptions2.legend"
+                                    [fill]="chartOptions2.fill"
+                                    [stroke]="chartOptions2.stroke"
+                                    [tooltip]="chartOptions2.tooltip"
+                                    [xaxis]="chartOptions2.xaxis"
+                                    [grid]="chartOptions2.grid"
+                                    ></apx-chart>
+                                </div>
+                            </div>
+                            <div *ngIf="user?.email !== 'AlexJS@fitflex.com'">
+                                <div id="chart">
+                                    <apx-chart
+                                    [series]="chartOptions2.series1"
+                                    [chart]="chartOptions2.chart"
+                                    [dataLabels]="chartOptions2.dataLabels"
+                                    [plotOptions]="chartOptions2.plotOptions"
+                                    [yaxis]="chartOptions2.yaxis"
+                                    [legend]="chartOptions2.legend"
+                                    [fill]="chartOptions2.fill"
+                                    [stroke]="chartOptions2.stroke"
+                                    [tooltip]="chartOptions2.tooltip"
+                                    [xaxis]="chartOptions2.xaxis"
+                                    [grid]="chartOptions2.grid"
+                                    ></apx-chart>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <div #swiperContainer class="swiper-container" style="overflow-x: auto;">
+                            <div class="swiper-wrapper">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
